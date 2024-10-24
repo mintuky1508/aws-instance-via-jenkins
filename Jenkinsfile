@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/your-repo.git' // Replace with your repository
+                git 'https://github.com/mintuky1508/aws-instance-via-jenkins.git' // Replace with your repository
             }
         }
         
