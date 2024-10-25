@@ -2,33 +2,40 @@ pipeline {
     agent any
 
     environment {
-        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')  
-        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
-        AWS_DEFAULT_REGION = 'us-east-1'
+        AWS_REGION = 'us-east-1' // specify the AWS region
+        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID') // Jenkins credentials ID
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY') // Jenkins credentials ID
     }
 
     stages {
-        stage('Checkout') {
+        stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/mintuky1508/aws-instance-via-jenkins.git'
-            }
-        }
-        
-        stage('Init Terraform') {
-            steps {
-                bat 'terraform init'
+                // Clone the specified GitHub repository
+                git url: 'https://github.com/mintuky1508/new-jenkins-tf.git', branch: 'main'
             }
         }
 
-        stage('Plan Terraform') {
+        stage('Initialize Terraform') {
             steps {
-                bat 'terraform plan -out=tfplan'
+                script {
+                    bat 'terraform init -input=false'
+                }
             }
         }
 
-        stage('Apply Terraform') {
+        stage('Plan Infrastructure') {
             steps {
-                bat 'terraform apply -auto-approve tfplan'
+                script {
+                    bat 'terraform plan -out=tfplan'
+                }
+            }
+        }
+
+        stage('Apply Infrastructure') {
+            steps {
+                script {
+                    bat 'terraform apply -input=false tfplan'
+                }
             }
         }
     }
