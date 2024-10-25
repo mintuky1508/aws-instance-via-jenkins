@@ -28,7 +28,6 @@ pipeline {
 
         stage('Apply Terraform') {
             steps {
-                input message: 'Do you want to apply the Terraform plan?'
                 bat 'terraform apply -auto-approve tfplan'
             }
         }
