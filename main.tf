@@ -10,7 +10,7 @@ resource "aws_instance" "example" {
     Name = "Jenkins-Terraform-EC2"
   }
 
-  key_name = "cicd.pem"  # Ensure this key pair is in the same region
+  key_name = "cicd"  # Ensure this key pair is in the same region
 }
 
 output "instance_id" {
