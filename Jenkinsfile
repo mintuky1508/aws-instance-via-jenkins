@@ -16,20 +16,20 @@ pipeline {
         
         stage('Init Terraform') {
             steps {
-                sh 'terraform init'
+                bat 'terraform init'
             }
         }
 
         stage('Plan Terraform') {
             steps {
-                sh 'terraform plan -out=tfplan'
+                bat 'terraform plan -out=tfplan'
             }
         }
 
         stage('Apply Terraform') {
             steps {
                 input message: 'Do you want to apply the Terraform plan?'
-                sh 'terraform apply tfplan'
+                bat 'terraform apply tfplan'
             }
         }
     }
