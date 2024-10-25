@@ -20,7 +20,3 @@ output "instance_id" {
 output "public_ip" {
   value = aws_instance.example.public_ip
 }
-
-  
-}
-
